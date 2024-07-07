@@ -1,6 +1,7 @@
 package org.choongang.global.exceptions;
 
 public class AlertRedirectException extends AlertException {
+// 예외 상황을 알리면서 동시에 사용자를 다른 페이지로 리다이렉트하는 기능
 
     private String redirectUrl;
     private String target;

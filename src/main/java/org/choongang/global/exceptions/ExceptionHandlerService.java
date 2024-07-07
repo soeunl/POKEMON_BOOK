@@ -23,6 +23,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ExceptionHandlerService {
+    // 예외가 발생했을 때 컨트롤러 클래스 내부의 에러 처리 메서드를 우선적으로 찾고, 없을 경우 ControllerAdvice 또는 RestControllerAdvice 클래스를 검색하여 해당 예외를 처리할 수 있는 메서드를 이용하여 적절한 에러 응답을 생성하는 역할을 수행함
+
     private final HttpServletRequest request;
     private final HttpServletResponse response;
     private final HttpSession session;
@@ -61,7 +63,7 @@ public class ExceptionHandlerService {
                 } else {
                     ControllerAdvice ca = advice.getClass().getDeclaredAnnotation(ControllerAdvice.class);
                     patterns = ca.value();
-                }
+                } // ControllerAdvice 는 모든 컨트롤러에서 공통적으로 사용할 수 있는 예외 처리 기능을 제공하며,RestControllerAdvice 는 @RestController 를 사용하는 컨트롤러에서만 사용할 수 있는 예외 처리 기능을 제공
 
                 if (patterns != null && Arrays.stream(patterns).anyMatch(pkName::startsWith)) {
                     for (Method m : advice.getClass().getDeclaredMethods()) {

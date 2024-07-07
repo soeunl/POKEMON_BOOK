@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.Reader;
 
-public class DBConn {
+public class DBConn { // 시스템 환경 변수 "mode" 값을 이용하여 MyBatis 설정 파일을 읽고 해당 설정을 기반으로 SqlSessionFactory 객체를 생성
     private static SqlSessionFactory factory;
 
 
@@ -16,6 +16,7 @@ public class DBConn {
         try {
             String mode = System.getenv("mode");
             mode = mode == null || !mode.equals("prod") ? "dev":"prod";
+            // 시스템 환경변수 설정
 
             Reader reader = Resources.getResourceAsReader("org/choongang/global/config/mybatis-config.xml");
             factory = new SqlSessionFactoryBuilder().build(reader, mode);
